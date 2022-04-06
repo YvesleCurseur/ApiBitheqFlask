@@ -1,8 +1,4 @@
-from unicodedata import category
 from flask_sqlalchemy import SQLAlchemy
-from flask import render_template, redirect, url_for, request, abort, jsonify
-from sqlalchemy import select
-
 
 db = SQLAlchemy()
 
@@ -18,9 +14,9 @@ class Categorie (db.Model):
 #
 # =========================================
 
-    def __init__(self, libelle_categorie):
-        """initialize with name."""
-        self.libelle_categorie = libelle_categorie 
+    # def __init__(self, libelle_categorie):
+    #     """initialize with name."""
+    #     self.libelle_categorie = libelle_categorie 
 
 # =========================================
 #
@@ -67,14 +63,14 @@ class Livre (db.Model):
 #
 # =========================================
 
-    def __init__(self, isbn, titre, date_publication, auteur, editeur, categorie_id):
-        """initialize with name."""
-        self.isbn = isbn
-        self.titre = titre
-        self.date_publication = date_publication
-        self.auteur = auteur
-        self.editeur = editeur
-        self.categorie_id = categorie_id
+    # def __init__(self, isbn, titre, date_publication, auteur, editeur, categorie_id):
+    #     """initialize with name."""
+    #     self.isbn = isbn
+    #     self.titre = titre
+    #     self.date_publication = date_publication
+    #     self.auteur = auteur
+    #     self.editeur = editeur
+    #     self.categorie_id = categorie_id
 
 # =========================================
 #
@@ -82,16 +78,16 @@ class Livre (db.Model):
 #
 # =========================================
  
-    def insertLivre(self):
-        db.session.add(self)
-        db.session.commit()
+def insertLivre(s):
+    db.session.add(s)
+    db.session.commit()
 
-    def deleteLivre(self):
-        db.session.delete(self)
-        db.session.commit()
-    
-    def updateLivre(self):
-        db.session.commit()
+def deleteLivre(s):
+    db.session.delete(s)
+    db.session.commit()
+
+def updateLivre(s):
+    db.session.commit()
 
 # =========================================
 #
@@ -100,7 +96,6 @@ class Livre (db.Model):
 # =========================================
 
     def formatLivre(self):
-
         return {
             'id': self.id,
             'isbn': self.isbn,
