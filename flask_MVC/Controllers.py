@@ -1,71 +1,18 @@
-from flask import request, jsonify
-from flask_MVC.Models import Livre, Categorie
+from flask import request, jsonify, abort
+from flask_mvc.models import Livre, Categorie
 
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # =========================================
 #
-#   Basic Index To Showw The Title 
+#   Basic Index To Showw The Title
 #
 # =========================================
+
 
 def index():
     return "<h1 style = 'position: absolute; top: 45%; left: 15%;'>Welcome to a Flask Api by <a href='https://github.com/YvesleCurseur'>https://github.com/YvesleCurseur<a> !</h1>"
-
-# =========================================
-#
-#   DATA Livre (show, add)
-#
-# =========================================
-
-def show_and_add_livre():
-    # Show All Livre
-    if request.method == "GET":
-
-        livres = Livre.query.all()
-        livres = [data.formatLivre() for data in livres]
-
-        return jsonify({
-                'Success': True,
-                'Livres': livres,
-                'Nombre Livre': len(Livre.query.all())
-            })
-    # Add A Livre
-    elif request.method == "POST":
-
-        js = request.get_json()
-        visbn = js.get('isbn', None)
-        vtitre = js.get('titre', None)
-        vdate_publication = js.get('date_publication', None)
-        vauteur = js.get('auteur', None)
-        vediteur = js.get('editeur', None)
-        vcategorie = js.get('categorie_id', None)
-        
-        rqst = Categorie.query.filter(Categorie.id==vcategorie).all()
-        
-        if not rqst:
-            return jsonify ({"Message" : "La catégorie n'existe pas !"})
-        else:
-            rqt = Livre.query.filter(Livre.isbn==visbn, Livre.titre==vtitre).all()
-            if rqt :
-                return jsonify({"Message" : "Le code isbn existe déjà !"})
-            elif not rqt :
-                livre = Livre(isbn=visbn, titre=vtitre, date_publication=vdate_publication, auteur=vauteur, editeur=vediteur, categorie_id=vcategorie)
-                livre.insertLivre()
-
-                livres = Livre.query.all()
-                livres_js = [data.formatLivre() for data in livres]
-
-                return jsonify({
-                    'Success': True,
-                    'Livres': livres_js,
-                    'Tous les Livres': len(Livre.query.all())
-                })
-    # Basic response when everything is wrong   
-    else :
-
-        return jsonify({"Message": "Erreur de Requete !"})
 
 # =========================================
 #
@@ -73,261 +20,453 @@ def show_and_add_livre():
 #
 # =========================================
 
-def show_and_add_categorie():
-    # Show All Categorie
-    if request.method == "GET":
 
-        categories = Categorie.query.all()
-        categories = [data.formatCategorie() for data in categories]
+def show_and_add_category():
+    # Message error for the function not working
+    try:
 
-        return jsonify({
-                'Categories': categories,
-                'Nombre Categorie': len(Categorie.query.all())
-            })
-    # Add A Categorie
-    elif request.method == "POST":
-    
-        js = request.get_json()
-        vlibelle_categorie = js.get('libelle_categorie', None)
-
-        if vlibelle_categorie == "":
-            return jsonify({"Message" : "Vos champs sont vides !"})
-        else :
-            rqt = Categorie.query.filter_by(libelle_categorie=vlibelle_categorie).all()
-            if rqt :
-                return jsonify({"Message" : "La catégorie existe déjà !"})
-            elif not rqt :
-                categorie = Categorie(libelle_categorie=vlibelle_categorie)
-                categorie.insertCategorie()
+        try:
+            # Show All Categorie
+            if request.method == "GET":
 
                 categories = Categorie.query.all()
-                categories_js = [data.formatCategorie() for data in categories]
-                
+                categories = [data.formatCategorie() for data in categories]
+
                 return jsonify({
-                    'Categories': categories_js,
-                    'Toutes les Categories': len(Categorie.query.all())
+                    'Success': True,
+                    'Categories': categories,
+                    'Nombre Categorie': len(categories)
                 })
-    # Basic response when everything is wrong   
-    else:
+        except BaseException:
+            # Method is wrong
+            abort(405)
 
-        return jsonify({"Message": "Erreur de Requete !"})
+        try:
+            # Add A Categorie
+            if request.method == "POST":
+
+                js = request.get_json()
+                vlibelle_categorie = js.get('libelle_categorie', None)
+
+                if vlibelle_categorie == "":
+                    return jsonify({
+                        "Success": False,
+                        "Message": "Vos champs sont vides !"
+                    })
+                else:
+                    rqt = Categorie.query.filter_by(
+                        libelle_categorie=vlibelle_categorie).all()
+                    if rqt:
+                        return jsonify({
+                            "Success": False,
+                            "Message": "La catégorie existe déjà !"
+                        })
+                    elif not rqt:
+                        categorie = Categorie(
+                            libelle_categorie=vlibelle_categorie)
+                        categorie.insertCategorie()
+
+                        categories = Categorie.query.all()
+                        categories_js = [data.formatCategorie()
+                                         for data in categories]
+
+                        return jsonify({
+                            'Success': True,
+                            'Categorie': categories_js,
+                            'Nombre Categorie': len(categories)
+                        })
+        except BaseException:
+            # Method is wrong
+            abort(405)
+        finally:
+            db.session.close()
+
+    # Basic response when everything is wrong (will transform in json) Bad
+    # request
+    except BaseException:
+        abort(400)
 
 # =========================================
 #
-#   DELETE Livre / Categorie 
+#   DATA Livre (show, add)
 #
 # =========================================
 
-def delete_livre(livreId):
-    # Try and Except for the request error
+
+def show_and_add_book():
+    # Message error for the function not working
     try:
-        livre=Livre.query.get(livreId)
 
-        if livre is None:
-            return jsonify({"Message":"Le livre n'existe pas !"})
-        else:
-            livre.delete()
-            return jsonify({
-            'Success':True,
-            'id supprime':livreId,
-            'Nombre Livre':len(Livre.query.all())
-            })
-    except:
-        return jsonify({"Message": "Erreur de Requete ou code !"})
-    finally:
-        db.session.close()
+        try:
+            # Show All Livre
+            if request.method == "GET":
 
-def delete_categorie(categorieId):
-    # Try and Except for the request error
+                livres = Livre.query.all()
+                livres = [data.formatLivre() for data in livres]
+
+                return jsonify({
+                    'Success': True,
+                    'Livres': livres,
+                    'Nombre Livre': len(livres)
+                })
+        except BaseException:
+            # Method is wrong
+            abort(405)
+
+        try:
+            # Add A book
+            if request.method == "POST":
+
+                # Recupère les données envoyées en json
+                js = request.get_json()
+
+                # Recupère chaque infos sous forme json (s'assurer que le
+                # champs soit nullable pour utiliser none)
+                visbn = js.get('isbn', None)
+                vtitre = js.get('titre', None)
+                vdate_publication = js.get('date_publication', None)
+                vauteur = js.get('auteur', None)
+                vediteur = js.get('editeur', None)
+                vcategorie = js.get('categorie_id', None)
+
+                rqst = Categorie.query.filter(Categorie.id == vcategorie).all()
+
+                if not rqst:
+                    return jsonify({
+                        "Success": False,
+                        "Message": "La catégorie n'existe pas !"
+                    })
+                else:
+                    rqt = Livre.query.filter(
+                        Livre.isbn == visbn, Livre.titre == vtitre).all()
+                    if rqt:
+                        return jsonify({
+                            "Success": False,
+                            "Message": "Le code isbn existe déjà !"
+                        })
+                    elif not rqt:
+                        livre = Livre(
+                            isbn=visbn,
+                            titre=vtitre,
+                            date_publication=vdate_publication,
+                            auteur=vauteur,
+                            editeur=vediteur,
+                            categorie_id=vcategorie)
+                        livre.insertLivre()
+
+                        livres = Livre.query.all()
+                        livres_js = [data.formatLivre() for data in livres]
+
+                        return jsonify({
+                            'Success': True,
+                            'Livre': livres_js,
+                            'id Livre': livre.id,
+                            'Nombre Livre': len(livres)
+                        })
+        except BaseException:
+            # Method is wrong
+            abort(405)
+        finally:
+            db.session.close()
+
+    # Basic response when everything is wrong (will transform in json) Bad
+    # request
+    except BaseException:
+        abort(400)
+
+# =========================================
+#
+#   DATA Livre(id) (update, delete)
+#
+# =========================================
+
+
+def update_and_delete_book_id(livreId):
+    # Message error for the function not working
     try:
-        categorie=Categorie.query.get(categorieId)
 
-        if categorie is None:
-            return jsonify({"Message":"Le livre n'existe pas !"})
-        else:
-            categorie.deleteCategorie()
-            return jsonify({
-            'Success':True,
-            'id supprime':categorieId,
-            'Nombre Categorie':len(Categorie.query.all())
-            })
-    except:
-        return jsonify({"Message": "Erreur de Requete !"})
-    finally:
-        db.session.close()
+        try:
+            # Delete a book
+            if request.method == "DELETE":
 
+                livre = Livre.query.get(livreId)
 
+                # None => id not found
+                if livre is None:
+                    return jsonify({
+                        "Success": False,
+                        "Message": "Le livre n'existe pas !"
+                    })
+                else:
+                    livre.deleteLivre()
+                    livres = Livre.query.all()
+                    return jsonify({
+                        'Success': True,
+                        'Id Livre': livreId,
+                        'Nombre Livre': len(livres)
+                    })
+        except BaseException:
+            # Method is wrong
+            abort(405)
+        finally:
+            db.session.close()
 
+        try:
 
+            if request.method == "PATCH":
 
+                js = request.get_json()
+                livre = Livre.query.get(livreId)
+                livres = Livre.query.all()
+
+                if livreId is None:
+                    return jsonify({
+                        "Success": False,
+                        "Message": "Le livre n'existe pas !"
+                    })
+                else:
+
+                    livre.isbn = js.get('isbn', None)
+                    livre.titre = js.get('titre', None)
+                    livre.date_publication = js.get('date_publication', None)
+                    livre.auteur = js.get('auteur', None)
+                    livre.editeur = js.get('editeur', None)
+                    livre.categorie = js.get('categorie_id', None)
+
+                    rqt = Livre.query.filter(
+                        Livre.isbn == livre.isbn,
+                        Livre.titre == livre.titre).all()
+                    if rqt:
+                        return jsonify({
+                            "Success": False,
+                            "Message": "Le code isbn existe déjà !"
+                        })
+                    else:
+                        livre.updateLivre()
+
+                return jsonify({
+                    'Success': True,
+                    'Livre': livre.formatLivre(),
+                    'Nombre Livre': len(livres)
+                })
+
+        except BaseException:
+            # Method is wrong
+            abort(405)
+
+    # Basic response when everything is wrong (will transform in json) Bad
+    # request
+    except BaseException:
+        abort(400)
 
 # =========================================
 #
-#   DATA Livre / Categorie (show by id)
+#   DATA Categorie(id) (update, delete)
 #
 # =========================================
 
-def showCategorieId(categorieId):
 
-    categorie = Categorie.query.get(categorieId)
-
-    return jsonify({
-        'Categorie': categorie.formatCategorie()
-    })
-
-def showLivreId(livreId):
+def update_and_delete_category_id(categorieId):
 
     try:
-        Li=db.session.query(Categorie,Livre).join(Livre).filter(Livre.id==livreId).all()
-        
-        Liv = []
-        for r in Li:
-            robj={}
-            robj['Categorie'] = r.Categorie.libelle_categorie
-            robj['Titre'] = r.Livre.titre
-            robj['Date publication'] = r.Livre.date_publication
-            robj['Auteur'] = r.Livre.auteur
-            robj['Editeur'] = r.Livre.editeur
-            robj['isbn'] = r.Livre.isbn
-            Liv.append(robj)
-        
-        return jsonify({
-            'Livre' : robj
-        })
-    except:
-        return jsonify({"Message" : "Ce livre n'existe pas !"})
+        try:
+            # delete a categorie
+            if request.method == "DELETE":
+
+                categorie = Categorie.query.get(categorieId)
+
+                if categorie is None:
+                    return jsonify({
+                        "Success": False,
+                        "Message": "La categorie n'existe pas !"
+                    })
+                else:
+                    categorie.deleteCategorie()
+                    categories = Categorie.query.all()
+                    return jsonify({
+                        'Success': True,
+                        'id supprime': categorieId,
+                        'Nombre Categorie': len(categories)
+                    })
+        except BaseException:
+            abort(405)
+        finally:
+            db.session.close()
+
+        try:
+
+            if request.method == "PATCH":
+
+                js = request.get_json()
+                categorie = Categorie.query.get(categorieId)
+                categories = Categorie.query.all()
+
+                if categorieId is None:
+                    return jsonify({
+                        "Success": False,
+                        "Message": "La categorie n'existe pas !"
+                    })
+                else:
+                    categorie.libelle_categorie = js.get(
+                        'libelle_categorie', None)
+
+                    rqt = Categorie.query.filter(
+                        Categorie.libelle_categorie == categorie.libelle_categorie).all()
+                    if rqt:
+                        return jsonify({
+                            "Success": False,
+                            "Message": "La categorie existe déjà !"
+                        })
+                    else:
+                        categorie.updateCategorie()
+
+                return jsonify({
+                    'Success': True,
+                    'Livre': categorie.formatCategorie(),
+                    'Nombre Livre': len(categories)
+                })
+
+        except BaseException:
+            # Method is wrong
+            abort(405)
+        finally:
+            db.session.close()
+
+    except BaseException:
+        abort(400)
 
 # =========================================
 #
-#   DATA Livre (show livre per categorie)
+#   DATA Categorie(id) (show)
 #
 # =========================================
 
-def showLivrePerCategorieId(categorieId):
 
-    # categorie = Categorie.query.get(categorieId)
+def show_a_category_id(categorieId):
 
-    # LiCa = Livre.query.filter(Livre.isbn==visbn, Livre.titre==vtitre).all()
+    try:
+        # show a categorie
+        if request.method == "GET":
+            categories = Categorie.query.all()
+            categorie = Categorie.query.get(categorieId)
 
-    LiCa=Livre.query.filter_by(categorie_id = categorieId).all()
-    # LiC=Livre.query.filter_by(categorie_id = categorieId).count()
-    # print(LiC)
-    Liv = []
-    for r in LiCa:
-        robj={}
-        robj['Categorie'] = r.categorie_id
-        robj['Titre'] = r.titre
-        robj['Date publication'] = r.date_publication
-        robj['Auteur'] = r.auteur
-        robj['Editeur'] = r.editeur
-        robj['isbn'] = r.isbn
-        Liv.append(robj)
-    
-    return jsonify({
-        'Livre' : Liv
-        })
-    # js = request.get_json()
-
-    # c = js.get('categorie_id', None)
-    
-
-
-    # return jsonify({
-    #     'Categorie': LiCa.formatCategorie()
-    # })
+            if categorie is None:
+                return jsonify({
+                    "Success": False,
+                    "Message": "La categorie n'existe pas !"
+                })
+            else:
+                return jsonify({
+                    'Success': True,
+                    'Categorie': categorie.formatCategorie(),
+                    'Nombre categorie': len(categories)
+                })
+    except BaseException:
+        abort(405)
 
 # =========================================
 #
-#   INSERT Livre / Categorie (store)
+#   DATA Livre(id) (show)
+#   Tips : For the show use another way than the format to make the data a json
+#   also practice to make join in sqlalchemy
 #
 # =========================================
 
-def storeLivre():
 
-    js = request.get_json()
-    visbn = js.get('isbn', None)
-    vtitre = js.get('titre', None)
-    vdate_publication = js.get('date_publication', None)
-    vauteur = js.get('auteur', None)
-    vediteur = js.get('editeur', None)
-    vcategorie = js.get('categorie_id', None)
-    
-    rqst = Categorie.query.filter(Categorie.id==vcategorie).all()
-    
-    if not rqst:
-        return jsonify ({"Message" : "La catégorie n'existe pas !"})
-    else:
-        rqt = Livre.query.filter(Livre.isbn==visbn, Livre.titre==vtitre).all()
-        if rqt :
-            return jsonify({"Message" : "Ce code isbn existe déjà !"})
-        elif not rqt :
-            livre = Livre(isbn=visbn, titre=vtitre, date_publication=vdate_publication, auteur=vauteur, editeur=vediteur, categorie_id=vcategorie)
-            livre.insertLivre()
+def show_a_book_id(livreId):
+
+    try:
+
+        if request.method == "GET":
 
             livres = Livre.query.all()
-            livres_js = [data.formatLivre() for data in livres]
+            livre = Livre.query.get(livreId)
 
-            return jsonify({
-                'Livres': livres_js,
-                'Tous les Livres': len(Livre.query.all())
-            })
+            # None => id not found
+            if livre is None:
+                return jsonify({
+                    "Success": False,
+                    "Message": "Le livre n'existe pas !"
+                })
+            else:
+                # A join to find the categorie name of a book
+                les_livres = db.session.query(
+                    Categorie, Livre).join(Livre).filter(
+                    Livre.id == livreId).all()
 
-def storeCategorie():
-    
-    js = request.get_json()
-    vlibelle_categorie = js.get('libelle_categorie', None)
+                # Empty dictionnary
+                dict_livre = []
+                # Transform all data find in obj and transform it to a json to
+                # put it in a dictionnary
+                for one in les_livres:
+                    one_obj = {}
+                    one_obj['id'] = one.Livre.id
+                    one_obj['isbn'] = one.Livre.isbn
+                    one_obj['Titre'] = one.Livre.titre
+                    one_obj['Date publication'] = one.Livre.date_publication
+                    one_obj['Auteur'] = one.Livre.auteur
+                    one_obj['Editeur'] = one.Livre.editeur
+                    one_obj['id categorie'] = one.Categorie.id
+                    one_obj['Categorie'] = one.Categorie.libelle_categorie
+                    dict_livre.append(one_obj)
 
-    if vlibelle_categorie == "":
-        return jsonify({"Message" : "Vos champs sont vides !"})
-    else :
-        rqt = Categorie.query.filter_by(libelle_categorie=vlibelle_categorie).all()
-
-        if rqt :
-            return jsonify({"Message" : "Cette catégorie existe déjà !"})
-        elif not rqt :
-            categorie = Categorie(libelle_categorie=vlibelle_categorie)
-            categorie.insertCategorie()
-
-            categories = Categorie.query.all()
-            categories_js = [data.formatCategorie() for data in categories]
-            
-            return jsonify({
-                'Categories': categories_js,
-                'Toutes les Categories': len(Categorie.query.all())
-            })
+                return jsonify({
+                    'Success': True,
+                    'Livre': dict_livre,
+                    'Nombre Livre': len(livres)
+                })
+    except BaseException:
+        abort(405)
 
 # =========================================
 #
-#   UPDATE Livre / Categorie (store)
+#   DATA Livre (show book by category)
 #
 # =========================================
 
-def editCategorie(categorieId):
 
-    js = request.get_json()
-    Ca = Categorie.query.filter(Categorie.id == categorieId).one_or_none()
+def show_book_by_category_id(categorieId):
 
-    Ca.libelle_categorie = js.get('libelle_categorie')
-    Ca.updateCategorie()
+    try:
 
+        livres = Livre.query.all()
+        livre_cat = Livre.query.filter_by(categorie_id=categorieId).all()
+        livre_format = [livre.formatLivre() for livre in livre_cat]
+
+        if categorieId is None:
+            return jsonify({
+                'Success': False,
+                "Message": "La categorie n'existe pas !"
+            })
+        elif livre_format is None:
+            return jsonify({
+                'Success': True,
+                "Message": "Aucun livre dans cette categorie !"
+            })
+        else:
+            return jsonify({
+                'Success': True,
+                'Livre': livre_format,
+                'Nombre Livre': len(livres)
+            })
+    except BaseException:
+        abort(400)
+
+
+def error_bad_request(error):
+    return (
+        jsonify({'success': False, 'error': 400,
+                'message': 'Bad request !'}), 400)
+
+
+def error_wrong_method(error):
+    return (jsonify({'success': False, 'error': 405,
+                     'message': 'method not allowed !'}), 405)
+
+
+def error_not_found(error):
     return jsonify({
-        'Libellé categorie': Ca.formatCategorie()
-    })
-
-def editLivre(livreId):
-
-    js = request.get_json()
-    Li = Livre.query.filter(Livre.id == livreId).one_or_none()
-
-    Li.isbn = js.get('isbn')
-    Li.titre = js.get('titre')
-    Li.date_publication = js.get('date_publication')
-    Li.auteur = js.get('auteur')
-    Li.editeur = js.get('editeur')
-    Li.categorie_id = js.get('categorie_id')
-    Li.updateLivre()
-
-    return jsonify({
-        'Libellé categorie': Li.formatLivre()
-    })
-
+        "success": False,
+        "error": 404,
+        "Message": "Not found !"
+    }), 404
