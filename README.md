@@ -149,7 +149,7 @@ http://localhost:5000/categorie
         "Success": true
     }
         
-### GET/category(categorie_id)
+### GET/category/id
 This endpoint allows you to get a particular category using his id. 
 
 - Online  
@@ -236,7 +236,7 @@ http://localhost:5000/categorie/6
         "Success": true
     }
 
-### DELETE/category/6
+### DELETE/category/id
 This endpoints remove a specific categorie, return success value, total number of category. 
 - Online  
 ```bash   
