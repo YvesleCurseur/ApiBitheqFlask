@@ -61,7 +61,7 @@ DB_NAME = ex(bibliotheque)
 FLASK_APP = app.py
 FLASK_ENV = "development" to run localy, "production" for the deployment
 ```
-<!-- 
+ 
 Migration are optional in this case but for launch the migrations to create your database run the following commands:
 ```bash
 flask db init
@@ -94,6 +94,7 @@ The API will return four error types when requests fail:
 . 405: Method not allowed
 . 500: Internal server error
 
+<!--
 ## Endpoints
 
 ### GET/movies
