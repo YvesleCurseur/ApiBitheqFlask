@@ -121,7 +121,6 @@ http://localhost:5000/categorie
 ```
 
 = Results =
-
     {
         "Categories": [
             {
@@ -161,7 +160,6 @@ https://apibitheqflask.herokuapp.com/categorie/1
 http://localhost:5000/categorie/1
 ```
 = Results =
-
     {
         "Categorie": {
             "Libelle Categorie": "Sci-fi",
