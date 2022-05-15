@@ -29,6 +29,16 @@ Apibitheqflask/
 |----README.md
 |----requirements.txt    
 ```
+
+- controllers.py 
+Define all my functions to manage the api
+- models.py
+Contains The class for the database
+- views.py
+Setup all the route for the functions 
+- app.py
+With all my flask app config
+
 ### Dependencies
 
 #### Python
@@ -59,7 +69,7 @@ DB_USER = ex(localhost)
 DB_PORT = ex(3306,5432)
 DB_NAME = ex(bibliotheque)
 FLASK_APP = app.py
-FLASK_ENV = "development" to run localy, "production" for the deployment
+FLASK_ENV = "development" to run localy, "production" to the deployment
 ```
  
 Migration are optional in this case but for launch the migrations to create your database run the following commands:
