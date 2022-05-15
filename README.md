@@ -38,6 +38,8 @@ Apibitheqflask/
 
 - **app.py**, with all my flask app config, and specially a `blueprint` config who allows to split the project
 
+- **migrations** folder for the database
+
 ### Dependencies
 
 #### Python
