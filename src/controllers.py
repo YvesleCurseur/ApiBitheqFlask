@@ -1,4 +1,4 @@
-from flask import request, jsonify, abort
+from flask import request, jsonify, abort, session
 from src.models import Livre, Categorie
 
 from flask_sqlalchemy import SQLAlchemy
@@ -67,6 +67,7 @@ def show_and_add_category():
                                 "Message": "La catégorie existe déjà !"
                             })
                         elif not rqt:
+                            session['libelle_categorie']=vlibelle_categorie
                             categorie = Categorie(
                                 libelle_categorie=vlibelle_categorie)
                             categorie.insertCategorie()

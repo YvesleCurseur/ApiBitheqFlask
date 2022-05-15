@@ -16,7 +16,7 @@ app = Flask(__name__)
 # And if you whant to separe this part
 # app.config.from_object('config')
 
-SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = os.urandom(25)
 
 # Enable debug mode.
 DEBUG = True
