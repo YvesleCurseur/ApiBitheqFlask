@@ -112,10 +112,10 @@ The API will return four error types when requests fail:
 This endpoints returns a list of category, success value, total number of category. 
 
 - Online    
-`https://apibitheqflask.herokuapp.com/categorie`
+https://apibitheqflask.herokuapp.com/categorie
 
 - Offline    
-`http://localhost:5000/categorie`
+http://localhost:5000/categorie
 
 = Results =
 
