@@ -111,12 +111,8 @@ The API will return four error types when requests fail:
 ### GET/category
 This endpoints returns a list of category, success value, total number of category. 
 
-    ```bash
     https://apibitheqflask.herokuapp.com/categorie
     http://localhost:5000/categorie
-    ```
-
-    ```bash
     {
         "Categories": [
             {
@@ -143,16 +139,12 @@ This endpoints returns a list of category, success value, total number of catego
         "Nombre Categorie": 5,
         "Success": true
     }
-    ```
         
 ### GET/category(categorie_id)
 This endpoint allows you to get a particular category using his id. 
-    ```bash
+    
     https://apibitheqflask.herokuapp.com/categorie/1
     http://localhost:5000/categorie/1
-    ```
-
-    ```bash
     {
         "Categorie": {
             "Libelle Categorie": "Sci-fi",
@@ -161,16 +153,12 @@ This endpoint allows you to get a particular category using his id.
         "Nombre categorie": 5,
         "Success": true
     }
-    ```
 
 ### POST/category
 This endpoint allows you to create a category.
-    ```bash
+    
     https://apibitheqflask.herokuapp.com/categorie
     http://localhost:5000/categorie
-    ```
-
-    ```bash
     {
         "Categorie": [
             {
@@ -201,16 +189,12 @@ This endpoint allows you to create a category.
         "Nombre Categorie": 6,
         "Success": true
     }
-    ```
 
 ### PATCH/category/id
 This endpoints update aspecific category, return success value, total number of category. 
-    ```bash
+
     https://apibitheqflask.herokuapp.com/categorie/6
     http://localhost:5000/categorie/6
-    ```
-
-    ```bash
     {
         "Categorie": {
             "Libelle Categorie": "Update",
@@ -219,20 +203,15 @@ This endpoints update aspecific category, return success value, total number of 
         "Nombre categorie": 6,
         "Success": true
     }
-    ```
 
 ### DELETE/category/6
 This endpoints remove a specific categorie, return success value, total number of category. 
-    ```bash
+
     https://apibitheqflask.herokuapp.com/categorie/6
     http://localhost:5000/categorie/6
-    ```
-    
-    ```bash
     {
         "Nombre Categorie": 5,
         "Success": true,
         "id supprime": 6
     }
-    ```
 
