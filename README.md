@@ -109,104 +109,125 @@ The API will return four error types when requests fail:
 ## Endpoints
 
 ### GET/category
-    This endpoints returns a list of category, success value, total number of category. 
-        https://apibitheqflask.herokuapp.com/categorie
-        http://localhost:5000/categorie
-        {
-            "Categories": [
-                {
-                    "Libelle Categorie": "Sci-fi",
-                    "id": 1
-                },
-                {
-                    "Libelle Categorie": "Art",
-                    "id": 2
-                },
-                {
-                    "Libelle Categorie": "Policier",
-                    "id": 3
-                },
-                {
-                    "Libelle Categorie": "Aventure",
-                    "id": 4
-                },
-                {
-                    "Libelle Categorie": "Enigme",
-                    "id": 5
-                }
-            ],
-            "Nombre Categorie": 5,
-            "Success": true
-        }
-        
-### GET/category(categorie_id)
-    This endpoint allows you to get a particular category using his id. 
-        https://apibitheqflask.herokuapp.com/categorie/1
-        http://localhost:5000/categorie/1
-        {
-            "Categorie": {
+This endpoints returns a list of category, success value, total number of category. 
+
+    ```bash
+    https://apibitheqflask.herokuapp.com/categorie
+    http://localhost:5000/categorie
+    ```
+    ```bash
+    {
+        "Categories": [
+            {
                 "Libelle Categorie": "Sci-fi",
                 "id": 1
             },
-            "Nombre categorie": 5,
-            "Success": true
-        }
+            {
+                "Libelle Categorie": "Art",
+                "id": 2
+            },
+            {
+                "Libelle Categorie": "Policier",
+                "id": 3
+            },
+            {
+                "Libelle Categorie": "Aventure",
+                "id": 4
+            },
+            {
+                "Libelle Categorie": "Enigme",
+                "id": 5
+            }
+        ],
+        "Nombre Categorie": 5,
+        "Success": true
+    }
+    ```
+        
+### GET/category(categorie_id)
+This endpoint allows you to get a particular category using his id. 
+    ```bash
+    https://apibitheqflask.herokuapp.com/categorie/1
+    http://localhost:5000/categorie/1
+    ```
+    ```bash
+    {
+        "Categorie": {
+            "Libelle Categorie": "Sci-fi",
+            "id": 1
+        },
+        "Nombre categorie": 5,
+        "Success": true
+    }
+    ```
 
 ### POST/category
-    This endpoint allows you to create a category.
-        https://apibitheqflask.herokuapp.com/categorie
-        http://localhost:5000/categorie
-        {
-            "Categorie": [
-                {
-                    "Libelle Categorie": "Sci-fi",
-                    "id": 1
-                },
-                {
-                    "Libelle Categorie": "Art",
-                    "id": 2
-                },
-                {
-                    "Libelle Categorie": "Policier",
-                    "id": 3
-                },
-                {
-                    "Libelle Categorie": "Aventure",
-                    "id": 4
-                },
-                {
-                    "Libelle Categorie": "Enigme",
-                    "id": 5
-                },
-                {
-                    "Libelle Categorie": "test",
-                    "id": 6
-                }
-            ],
-            "Nombre Categorie": 6,
-            "Success": true
-        }
+This endpoint allows you to create a category.
+    ```bash
+    https://apibitheqflask.herokuapp.com/categorie
+    http://localhost:5000/categorie
+    ```
+    ```bash
+    {
+        "Categorie": [
+            {
+                "Libelle Categorie": "Sci-fi",
+                "id": 1
+            },
+            {
+                "Libelle Categorie": "Art",
+                "id": 2
+            },
+            {
+                "Libelle Categorie": "Policier",
+                "id": 3
+            },
+            {
+                "Libelle Categorie": "Aventure",
+                "id": 4
+            },
+            {
+                "Libelle Categorie": "Enigme",
+                "id": 5
+            },
+            {
+                "Libelle Categorie": "test",
+                "id": 6
+            }
+        ],
+        "Nombre Categorie": 6,
+        "Success": true
+    }
+    ```
 
 ### PATCH/category/id
-    This endpoints update aspecific category, return success value, total number of category. 
-        https://apibitheqflask.herokuapp.com/categorie/6
-        http://localhost:5000/categorie/6
-        {
-            "Categorie": {
-                "Libelle Categorie": "Update",
-                "id": 6
-            },
-            "Nombre categorie": 6,
-            "Success": true
-        }
+This endpoints update aspecific category, return success value, total number of category. 
+    ```bash
+    https://apibitheqflask.herokuapp.com/categorie/6
+    http://localhost:5000/categorie/6
+    ```
+    ```bash
+    {
+        "Categorie": {
+            "Libelle Categorie": "Update",
+            "id": 6
+        },
+        "Nombre categorie": 6,
+        "Success": true
+    }
+    ```
 
 ### DELETE/category/6
-    This endpoints remove a specific categorie, return success value, total number of category. 
-        https://apibitheqflask.herokuapp.com/categorie/6
-        http://localhost:5000/categorie/6
-        {
-            "Nombre Categorie": 5,
-            "Success": true,
-            "id supprime": 6
-        }
+This endpoints remove a specific categorie, return success value, total number of category. 
+    ```bash
+    https://apibitheqflask.herokuapp.com/categorie/6
+    http://localhost:5000/categorie/6
+    ```
+    ```bash
+    {
+        "Nombre Categorie": 5,
+        "Success": true,
+        "id supprime": 6
+    }
+    ```
 
