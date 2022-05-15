@@ -86,8 +86,6 @@ def show_and_add_category():
         except:
             # Method is wrong
             abort(405)
-        finally:
-            db.session.close()
 
     # Basic response when everything is wrong (will transform in json) Bad
     # request
@@ -146,6 +144,11 @@ def show_and_add_book():
                             "Success": False,
                             "Message": "La catégorie n'existe pas !"
                         })
+                    elif visbn == "" and vtitre == "" and vdate_publication == "" and vauteur == "" and vediteur == "" and vcategorie == "":
+                        return jsonify({
+                            "Success": False,
+                            "Message": "Vos champs sont vides !"
+                        })
                     else:
                         rqt = Livre.query.filter(
                             Livre.isbn == visbn, Livre.titre == vtitre).all()
@@ -178,8 +181,6 @@ def show_and_add_book():
         except:
             # Method is wrong
             abort(405)
-        finally:
-            db.session.close()
 
     # Basic response when everything is wrong (will transform in json) Bad
     # request
@@ -220,8 +221,6 @@ def update_and_delete_book_id(livreId):
                     abort(400)
         except:
             abort(405)
-        finally:
-            db.session.close()
 
         try:
             if request.method == "PATCH":
@@ -250,6 +249,11 @@ def update_and_delete_book_id(livreId):
                                 "Success": False,
                                 "Message": "Le code isbn existe déjà !"
                             })
+                        elif livre.isbn == "" and livre.date_publication == "" and livre.auteur == "" and livre.auteur == "" and livre.editeur == "" and livre.categorie == "":
+                            return jsonify({
+                                "Success": False,
+                                "Message": "Vos champs sont vides !"
+                            })
                         
                         livre.updateLivre()
 
@@ -262,9 +266,6 @@ def update_and_delete_book_id(livreId):
                     abort(400)
         except:
             abort(405)
-        finally:
-            db.session.close()
-
     except:
         abort(404)
 # =========================================
@@ -301,8 +302,6 @@ def update_and_delete_category_id(categorieId):
                     abort(400)
         except:
             abort(405)
-        finally:
-            db.session.close()
         # Mauvaise méthode
         try:
             if request.method == "PATCH":
@@ -323,17 +322,10 @@ def update_and_delete_category_id(categorieId):
                         if categorie.libelle_categorie == "":
                             return jsonify({
                             "Success": False,
-                            "Message": "Champs vides !"
+                            "Message": "Vos champs sont vides !"
                         })
-                        else:
-                        # rqt = Categorie.query.filter(Categorie.libelle_categorie == categorie.libelle_categorie).all()
-                        # if rqt:
-                        #     return jsonify({
-                        #         "Success": False,
-                        #         "Message": "La categorie existe déjà !"
-                        #     })
-                        # else:
-                            categorie.updateCategorie()
+
+                        categorie.updateCategorie()
 
                     return jsonify({
                         'Success': True,
@@ -345,8 +337,6 @@ def update_and_delete_category_id(categorieId):
         except:
             # Method is wrong
             abort(405)
-        finally:
-            db.session.close()
 
     except:
         abort(404)
@@ -383,8 +373,6 @@ def show_a_category_id(categorieId):
                     abort(400)
         except:
             abort(405)
-        finally:
-            db.session.close()
     except:
         abort(404)
 
