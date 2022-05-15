@@ -151,9 +151,17 @@ http://localhost:5000/categorie
         
 ### GET/category(categorie_id)
 This endpoint allows you to get a particular category using his id. 
-    
-    https://apibitheqflask.herokuapp.com/categorie/1
-    http://localhost:5000/categorie/1
+
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/categorie/1
+```
+- Offline   
+```bash 
+http://localhost:5000/categorie/1
+```
+= Results =
+
     {
         "Categorie": {
             "Libelle Categorie": "Sci-fi",
