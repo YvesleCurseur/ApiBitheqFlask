@@ -68,3 +68,4 @@ Migration are optional in this case but for launch the migrations to create your
 - flask db migrate -m "Initial migration."
 - python manage.py db upgrade.
 
+
