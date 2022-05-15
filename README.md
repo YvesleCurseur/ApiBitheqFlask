@@ -113,6 +113,7 @@ This endpoints returns a list of category, success value, total number of catego
 
     https://apibitheqflask.herokuapp.com/categorie
     http://localhost:5000/categorie
+===============================================================
     {
         "Categories": [
             {
