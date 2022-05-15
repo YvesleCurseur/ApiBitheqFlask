@@ -121,6 +121,7 @@ http://localhost:5000/categorie
 ```
 
 = Results =
+
     {
         "Categories": [
             {
@@ -160,6 +161,7 @@ https://apibitheqflask.herokuapp.com/categorie/1
 http://localhost:5000/categorie/1
 ```
 = Results =
+
     {
         "Categorie": {
             "Libelle Categorie": "Sci-fi",
@@ -171,9 +173,17 @@ http://localhost:5000/categorie/1
 
 ### POST/category
 This endpoint allows you to create a category.
-    
-    https://apibitheqflask.herokuapp.com/categorie
-    http://localhost:5000/categorie
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/categorie
+```
+
+- Offline  
+```bash   
+http://localhost:5000/categorie
+```
+= Results =
+
     {
         "Categorie": [
             {
@@ -207,9 +217,16 @@ This endpoint allows you to create a category.
 
 ### PATCH/category/id
 This endpoints update aspecific category, return success value, total number of category. 
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/categorie/6
+```
+- Offline   
+```bash 
+http://localhost:5000/categorie/6
+```
+= Results =
 
-    https://apibitheqflask.herokuapp.com/categorie/6
-    http://localhost:5000/categorie/6
     {
         "Categorie": {
             "Libelle Categorie": "Update",
@@ -221,9 +238,16 @@ This endpoints update aspecific category, return success value, total number of 
 
 ### DELETE/category/6
 This endpoints remove a specific categorie, return success value, total number of category. 
-
+- Online  
+```bash   
     https://apibitheqflask.herokuapp.com/categorie/6
+```
+- Offline   
+```bash 
     http://localhost:5000/categorie/6
+```
+= Results =
+
     {
         "Nombre Categorie": 5,
         "Success": true,
