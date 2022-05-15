@@ -243,13 +243,7 @@ def update_and_delete_book_id(livreId):
                         livre.editeur = js.get('editeur', None)
                         livre.categorie = js.get('categorie_id', None)
 
-                        rqt = Livre.query.filter(Livre.isbn == livre.isbn,Livre.titre == livre.titre).all()
-                        if rqt is not None:
-                            return jsonify({
-                                "Success": False,
-                                "Message": "Le code isbn existe déjà !"
-                            })
-                        elif livre.isbn == "" and livre.date_publication == "" and livre.auteur == "" and livre.auteur == "" and livre.editeur == "" and livre.categorie == "":
+                        if livre.isbn == "" and livre.date_publication == "" and livre.auteur == "" and livre.auteur == "" and livre.editeur == "" and livre.categorie == "":
                             return jsonify({
                                 "Success": False,
                                 "Message": "Vos champs sont vides !"

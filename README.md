@@ -1,11 +1,11 @@
 # ApiBitheqFlask
 ## Summary
-1. Motivation
+1. Why ?
 2. Directory and project environment
 3. Setup the project
 4. API Documentation
 
-## Motivation
+## Why ?
 This is a Flask API project for managing books is, this project aims knowing this following concepts :
 - Modeling of the database for a web application using the SQLAlchemy ORM (src/models.py)
 - CRUDs to interact with the database: (src/controllers.py)
@@ -37,7 +37,7 @@ Contains The class for the database
 - views.py
 Setup all the route for the functions 
 - app.py
-With all my flask app config, and specially a `blueprint` config who allows me to split the project
+With all my flask app config, and specially a `blueprint` config who allows to split the project
 
 ### Dependencies
 
@@ -150,7 +150,7 @@ http://localhost:5000/categorie
     }
         
 ### GET/category/id
-This endpoint allows you to get a particular category using his id. 
+This endpoint allows you to get a particular category using his id, success value, total category of book.
 
 - Online  
 ```bash   
@@ -237,7 +237,7 @@ http://localhost:5000/categorie/6
     }
 
 ### DELETE/category/id
-This endpoints remove a specific categorie, return success value, total number of category. 
+This endpoints remove a specific category, return success value, total number of category. 
 - Online  
 ```bash   
     https://apibitheqflask.herokuapp.com/categorie/6
@@ -254,3 +254,267 @@ This endpoints remove a specific categorie, return success value, total number o
         "id supprime": 6
     }
 
+### GET/book
+This endpoints returns a list of book, success value, total number of book. 
+
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/livre
+```
+- Offline   
+```bash 
+http://localhost:5000/livre
+```
+
+= Results =
+
+    {
+        "Livres": [
+            {
+                "Auteur": "Rodrige",
+                "Categorie": 1,
+                "Date publication": "Wed, 13 Dec 2000 00:00:00 GMT",
+                "Editeur": "Nathan",
+                "Titre": "Mes aveux",
+                "id": 1,
+                "isbn": "48205842"
+            },
+            {
+                "Auteur": "Nobel",
+                "Categorie": 1,
+                "Date publication": "Mon, 07 May 1990 00:00:00 GMT",
+                "Editeur": "Les montagnes",
+                "Titre": "Rédemption",
+                "id": 2,
+                "isbn": "462642642"
+            },
+            {
+                "Auteur": "Robinson",
+                "Categorie": 2,
+                "Date publication": "Tue, 17 Oct 1905 00:00:00 GMT",
+                "Editeur": "Monaco",
+                "Titre": "Les refuges de Némos",
+                "id": 3,
+                "isbn": "979426724"
+            },
+            {
+                "Auteur": "Coléoptère",
+                "Categorie": 3,
+                "Date publication": "Fri, 29 Apr 2005 00:00:00 GMT",
+                "Editeur": "Brézilness",
+                "Titre": "Finition",
+                "id": 4,
+                "isbn": "590638563"
+            },
+            {
+                "Auteur": "Revenir",
+                "Categorie": 3,
+                "Date publication": "Sun, 12 Aug 1945 00:00:00 GMT",
+                "Editeur": "Constructor",
+                "Titre": "Sex on the beach",
+                "id": 5,
+                "isbn": "9030405735"
+            }
+        ],
+        "Nombre Livre": 5,
+        "Success": true
+    }
+        
+### GET/book/id
+This endpoint allows you to get a particular book using his id, success value, total number of book.
+
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/livre/1
+```
+- Offline   
+```bash 
+http://localhost:5000/livre/1
+```
+= Results =
+
+    {
+        "Livre": [
+            {
+                "Auteur": "Rodrige",
+                "Categorie": "Sci-fi",
+                "Date publication": "Wed, 13 Dec 2000 00:00:00 GMT",
+                "Editeur": "Nathan",
+                "Titre": "Mes aveux",
+                "id": 1,
+                "id categorie": 1,
+                "isbn": "48205842"
+            }
+        ],
+        "Nombre Livre": 5,
+        "Success": true
+    }
+
+### POST/book
+This endpoint allows you to create a book, return it, the success value and the total number of book.
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/livre
+```
+
+- Offline  
+```bash   
+http://localhost:5000/livre
+```
+= Results =
+
+    {
+        "Livre": [
+            {
+                "Auteur": "Rodrige",
+                "Categorie": 1,
+                "Date publication": "Wed, 13 Dec 2000 00:00:00 GMT",
+                "Editeur": "Nathan",
+                "Titre": "Mes aveux",
+                "id": 1,
+                "isbn": "48205842"
+            },
+            {
+                "Auteur": "Nobel",
+                "Categorie": 1,
+                "Date publication": "Mon, 07 May 1990 00:00:00 GMT",
+                "Editeur": "Les montagnes",
+                "Titre": "Rédemption",
+                "id": 2,
+                "isbn": "462642642"
+            },
+            {
+                "Auteur": "Robinson",
+                "Categorie": 2,
+                "Date publication": "Tue, 17 Oct 1905 00:00:00 GMT",
+                "Editeur": "Monaco",
+                "Titre": "Les refuges de Némos",
+                "id": 3,
+                "isbn": "979426724"
+            },
+            {
+                "Auteur": "Coléoptère",
+                "Categorie": 3,
+                "Date publication": "Fri, 29 Apr 2005 00:00:00 GMT",
+                "Editeur": "Brézilness",
+                "Titre": "Finition",
+                "id": 4,
+                "isbn": "590638563"
+            },
+            {
+                "Auteur": "Revenir",
+                "Categorie": 3,
+                "Date publication": "Sun, 12 Aug 1945 00:00:00 GMT",
+                "Editeur": "Constructor",
+                "Titre": "Sex on the beach",
+                "id": 5,
+                "isbn": "9030405735"
+            },
+            {
+                "Auteur": "Fulbert",
+                "Categorie": 5,
+                "Date publication": "Sun, 15 May 2022 00:00:00 GMT",
+                "Editeur": "Yves_le_Curseur",
+                "Titre": "For the test",
+                "id": 6,
+                "isbn": "1"
+            }
+        ],
+        "Nombre Livre": 6,
+        "Success": true,
+        "id Livre": 6
+    }
+
+### PATCH/book/id
+This endpoints update aspecific book, return success value, total number of book. 
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/livre/6
+```
+- Offline   
+```bash 
+http://localhost:5000/livre/6
+```
+= Results =
+
+    {
+        "Livre": {
+            "Auteur": "Fulbert 2.0",
+            "Categorie": 5,
+            "Date publication": "Sun, 15 May 2022 00:00:00 GMT",
+            "Editeur": "Yves_le_Curseur 2.0",
+            "Titre": "Update",
+            "id": 6,
+            "isbn": "2"
+        },
+        "Nombre Livre": 6,
+        "Success": true
+    }
+
+### DELETE/book/id
+This endpoints remove a specific book, return success value, total number of book. 
+- Online  
+```bash   
+    https://apibitheqflask.herokuapp.com/livre/6
+```
+- Offline   
+```bash 
+    http://localhost:5000/livre/6
+```
+= Results =
+
+{
+    "Id Livre": 6,
+    "Nombre Livre": 5,
+    "Success": true
+}
+
+### GET/book/category/id
+This endpoint allows you to get all the books of a specifics category using his id, success value, total category of book.
+
+- Online  
+```bash   
+https://apibitheqflask.herokuapp.com/livre/categorie/1
+```
+- Offline   
+```bash 
+http://localhost:5000/livre/categorie/1
+```
+= Results =
+
+{
+    "Livre": [
+        {
+            "Auteur": "Rodrige",
+            "Categorie": 1,
+            "Date publication": "Wed, 13 Dec 2000 00:00:00 GMT",
+            "Editeur": "Nathan",
+            "Titre": "Mes aveux",
+            "id": 1,
+            "isbn": "48205842"
+        },
+        {
+            "Auteur": "Nobel",
+            "Categorie": 1,
+            "Date publication": "Mon, 07 May 1990 00:00:00 GMT",
+            "Editeur": "Les montagnes",
+            "Titre": "Rédemption",
+            "id": 2,
+            "isbn": "462642642"
+        }
+    ],
+    "Nombre Livre": 5,
+    "Success": true
+}
+
+### Another results you can get
+
+    {
+        "Message": "Le livre n'existe pas !",
+        "Success": false
+    }
+
+    {
+        "Message": "Le code isbn existe déjà !",
+        "Success": false
+    }
