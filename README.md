@@ -115,6 +115,7 @@ This endpoints returns a list of category, success value, total number of catego
     https://apibitheqflask.herokuapp.com/categorie
     http://localhost:5000/categorie
     ```
+
     ```bash
     {
         "Categories": [
@@ -150,6 +151,7 @@ This endpoint allows you to get a particular category using his id.
     https://apibitheqflask.herokuapp.com/categorie/1
     http://localhost:5000/categorie/1
     ```
+
     ```bash
     {
         "Categorie": {
@@ -167,6 +169,7 @@ This endpoint allows you to create a category.
     https://apibitheqflask.herokuapp.com/categorie
     http://localhost:5000/categorie
     ```
+
     ```bash
     {
         "Categorie": [
@@ -206,6 +209,7 @@ This endpoints update aspecific category, return success value, total number of 
     https://apibitheqflask.herokuapp.com/categorie/6
     http://localhost:5000/categorie/6
     ```
+
     ```bash
     {
         "Categorie": {
@@ -223,6 +227,7 @@ This endpoints remove a specific categorie, return success value, total number o
     https://apibitheqflask.herokuapp.com/categorie/6
     http://localhost:5000/categorie/6
     ```
+    
     ```bash
     {
         "Nombre Categorie": 5,
