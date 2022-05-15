@@ -5,13 +5,13 @@
 3. Setup the project
 4. API Documentation
 
-## Why ?
+## 1. Why ?
 This is a Flask API project for managing books is, this project aims knowing this following concepts :
 - Modeling of the database for a web application using the SQLAlchemy ORM (src/models.py)
 - CRUDs to interact with the database: (src/controllers.py)
-- Deployment on heroku (Procfile, setup.sh)
+- Deployment on heroku (Procfile, app.py)
 
-## Directory and project environment
+## 2. Directory and project environment
 
 ```bash
 Apibitheqflask/
@@ -39,6 +39,8 @@ Apibitheqflask/
 - **app.py**, with all my flask app config, and specially a `blueprint` config who allows to split the project
 
 - **migrations** folder for the database
+
+## 3. Setup the project
 
 ### Dependencies
 
@@ -87,7 +89,7 @@ To run the server, execute:
 `flask run` 
 
 
-## API Documentation
+## 3. API Documentation
 
 This API has been deployed on heroku and is available from the link https://apibitheqflask.herokuapp.com
 
