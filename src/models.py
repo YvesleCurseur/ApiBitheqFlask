@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
 class Categorie (db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
@@ -69,15 +68,15 @@ class Livre (db.Model):
 #
 # =========================================
 
-    def insertLivre(s):
-        db.session.add(s)
+    def insertLivre(self):
+        db.session.add(self)
         db.session.commit()
 
-    def deleteLivre(s):
-        db.session.delete(s)
+    def deleteLivre(self):
+        db.session.delete(self)
         db.session.commit()
 
-    def updateLivre(s):
+    def updateLivre(self):
         db.session.commit()
 
 # =========================================

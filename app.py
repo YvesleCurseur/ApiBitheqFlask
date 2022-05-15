@@ -1,12 +1,12 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 # Take Models, Views from directory Flask_MVC
-from flask_mvc.models import db
-from flask_mvc.views import the_path
+from src.models import db
+from src.views import chemin
 
 # For env
 from dotenv import load_dotenv
@@ -34,5 +34,38 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# Use of blueprint for the path
-app.register_blueprint(the_path, url_prefix='/')
+# Blueprint can be use for the path, directory, templates etc to split the flask app and make different type for components
+app.register_blueprint(chemin)
+
+#Return errors into json
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+        "Success": False,
+        "Error": 400,
+        "Message": "Bad request !"
+        }), 400
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "Success": False,
+        "Error": 404,
+        "Message": "Not found !"
+        }), 404
+
+@app.errorhandler(405)
+def method_not_allowed(error):
+    return jsonify({
+        "Success": False,
+        "Error": 405,
+        "Message": "Method not allowed !"
+        }), 405
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        "Success": False,
+        "Error": 500,
+        "Message": "Internal server error !"
+        }), 500
