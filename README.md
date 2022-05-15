@@ -463,11 +463,11 @@ This endpoints remove a specific book, return success value, total number of boo
 ```
 = Results =
 
-{
-    "Id Livre": 6,
-    "Nombre Livre": 5,
-    "Success": true
-}
+    {
+        "Id Livre": 6,
+        "Nombre Livre": 5,
+        "Success": true
+    }
 
 ### GET/book/category/id
 This endpoint allows you to get all the books of a specifics category using his id, success value, total category of book.
@@ -482,30 +482,30 @@ http://localhost:5000/livre/categorie/1
 ```
 = Results =
 
-{
-    "Livre": [
-        {
-            "Auteur": "Rodrige",
-            "Categorie": 1,
-            "Date publication": "Wed, 13 Dec 2000 00:00:00 GMT",
-            "Editeur": "Nathan",
-            "Titre": "Mes aveux",
-            "id": 1,
-            "isbn": "48205842"
-        },
-        {
-            "Auteur": "Nobel",
-            "Categorie": 1,
-            "Date publication": "Mon, 07 May 1990 00:00:00 GMT",
-            "Editeur": "Les montagnes",
-            "Titre": "Rédemption",
-            "id": 2,
-            "isbn": "462642642"
-        }
-    ],
-    "Nombre Livre": 5,
-    "Success": true
-}
+    {
+        "Livre": [
+            {
+                "Auteur": "Rodrige",
+                "Categorie": 1,
+                "Date publication": "Wed, 13 Dec 2000 00:00:00 GMT",
+                "Editeur": "Nathan",
+                "Titre": "Mes aveux",
+                "id": 1,
+                "isbn": "48205842"
+            },
+            {
+                "Auteur": "Nobel",
+                "Categorie": 1,
+                "Date publication": "Mon, 07 May 1990 00:00:00 GMT",
+                "Editeur": "Les montagnes",
+                "Titre": "Rédemption",
+                "id": 2,
+                "isbn": "462642642"
+            }
+        ],
+        "Nombre Livre": 5,
+        "Success": true
+    }
 
 ### Another results you can get
 
