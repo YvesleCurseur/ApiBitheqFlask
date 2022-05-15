@@ -51,19 +51,19 @@ Heroku looks for a requirements.txt file that needs to include all of your depen
 This will install all of the required packages we selected within the `requirements.txt` file.
 
 ## Running the server locally
-To execute your API locally, you need to modify create a `.env` file with the diferrents values: 
+To execute your API locally, you need to create a `.env` file with the diferrents values: 
+
 ```bash
-ENGINE=postgresql
-DB_ENGINE=postgres
-DB_PASSWORD=SecretPassw0rd
-DB_USER=localhost
-DB_PORT=5432
-DB_NAME=bibliotheque
-FLASK_APP=app.py
-FLASK_ENV=development
+DB_ENGINE = ex(mysql,postrges,mariadb)
+DB_PASSWORD = ex(yourdbpassword)
+DB_USER = ex(localhost)
+DB_PORT = ex(3306,5432)
+DB_NAME = ex(bibliotheque)
+FLASK_APP = app.py
+FLASK_ENV = "development" to run localy, "production" for the deployment
 ```
 
-You must then launch the migrations to create your database. These migrations are managed using the following commands:
-- python manage.py db init
-- python manage.py db migrate
+Migration are optional in this case but for launch the migrations to create your database. These migrations are managed using the following commands:
+- flask db init
+- flask db migrate -m "Initial migration."
 - python manage.py db upgrade.
