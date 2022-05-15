@@ -28,7 +28,7 @@ else:
 # Connect to the database
 #app.config['SQLALCHEMY_DATABASE_URI'] = f"{os.getenv('ENGINE')}://{os.getenv('DB_ENGINE')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_USER')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 # for heroku deploy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://uomsdzpmortbsg:60ea30be28f763eed40fbe79627957cf80dea24d5acd2f809138ce30b053fd9d@ec2-3-224-164-189.compute-1.amazonaws.com:5432/dfspipb7i3evij
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://uomsdzpmortbsg:60ea30be28f763eed40fbe79627957cf80dea24d5acd2f809138ce30b053fd9d@ec2-3-224-164-189.compute-1.amazonaws.com:5432/dfspipb7i3evij'
 # Turn off the Flask-SQLAlchemy event system and warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
