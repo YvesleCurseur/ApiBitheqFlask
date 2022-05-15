@@ -30,16 +30,16 @@ Apibitheqflask/
 |----requirements.txt    
 ```
 
-- controllers.py 
+- **controllers.py** 
 
 Define all my functions to manage the api
-- models.py
+- **models.py**
 
 Contains The class for the database
-- views.py
+- **views.py**
 
 Setup all the route for the functions 
-- app.py
+- **app.py**
 
 With all my flask app config, and specially a `blueprint` config who allows to split the project
 
