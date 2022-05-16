@@ -80,7 +80,6 @@ FLASK_ENV = "development" to run localy, "production" to the deployment
  
 You must then launch the migrations to create your database, spacialy the tables so create your database and run the following commands:
 ```bash
-flask db init
 flask db migrate -m "Initial migration."
 flask db upgrade.
 ```
