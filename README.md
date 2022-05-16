@@ -25,6 +25,7 @@ Apibitheqflask/
 |
 |----.gitignore
 |----API_BIBLIOTHEQUE.postman_collection.json
+|----Procfile
 |----app.py
 |----README.md
 |----requirements.txt    
@@ -39,6 +40,8 @@ Apibitheqflask/
 - **app.py**, with all my flask app config, and specially a `blueprint` config who allows to split the project
 
 - **migrations** folder for the database
+
+- **Procfile** for heroku deploy
 
 ## 3. Setup the project
 
