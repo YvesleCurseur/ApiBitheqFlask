@@ -241,7 +241,7 @@ def update_and_delete_book_id(livreId):
                         livre.editeur = js.get('editeur', None)
                         livre.categorie = js.get('categorie_id', None)
 
-                        if livre.isbn == "" and livre.date_publication == "" and livre.auteur == "" and livre.auteur == "" and livre.editeur == "" and livre.categorie == "":
+                        if livre.isbn == "" and livre.titre == "" and livre.date_publication == "" and livre.auteur == "" and livre.editeur == "" and livre.categorie == "":
                             return jsonify({
                                 "Success": False,
                                 "Message": "Vos champs sont vides !"
