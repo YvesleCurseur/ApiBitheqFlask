@@ -138,6 +138,7 @@ def show_and_add_book():
                     vcategorie = js.get('categorie_id', None)
 
                     rqst = Categorie.query.filter(Categorie.id == vcategorie).all()
+                    rqt = Livre.query.filter(Livre.isbn == visbn, Livre.date_publication == vdate_publication).all()
 
                     if not rqst:
                         return jsonify({
@@ -149,33 +150,30 @@ def show_and_add_book():
                             "Success": False,
                             "Message": "Vos champs sont vides !"
                         })
-                    else:
-                        rqt = Livre.query.filter(
-                            Livre.isbn == visbn, Livre.titre == vtitre).all()
-                        if rqt:
+                    elif rqt:
                             return jsonify({
                                 "Success": False,
                                 "Message": "Le code isbn existe déjà !"
                             })
-                        elif not rqt:
-                            livre = Livre(
-                                isbn=visbn,
-                                titre=vtitre,
-                                date_publication=vdate_publication,
-                                auteur=vauteur,
-                                editeur=vediteur,
-                                categorie_id=vcategorie)
-                            livre.insertLivre()
+                            
+                    livre = Livre(
+                        isbn=visbn,
+                        titre=vtitre,
+                        date_publication=vdate_publication,
+                        auteur=vauteur,
+                        editeur=vediteur,
+                        categorie_id=vcategorie)
+                    livre.insertLivre()
 
-                            livres = Livre.query.all()
-                            livres_js = [data.formatLivre() for data in livres]
+                    livres = Livre.query.all()
+                    livres_js = [data.formatLivre() for data in livres]
 
-                            return jsonify({
-                                'Success': True,
-                                'Livre': livres_js,
-                                'id Livre': livre.id,
-                                'Nombre Livre': len(livres)
-                            })
+                    return jsonify({
+                        'Success': True,
+                        'Livre': livres_js,
+                        'id Livre': livre.id,
+                        'Nombre Livre': len(livres)
+                    })
                 except:
                     abort(400)
         except:
